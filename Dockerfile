@@ -1,5 +1,5 @@
 # DEFINE BASE IMAGE
-ARG DOC_VERDACCIO_VER
+ARG DOC_VERDACCIO_VER=4.6
 FROM verdaccio/verdaccio:${DOC_VERDACCIO_VER}
 
 # CUSTOM IMAGE
@@ -12,12 +12,12 @@ RUN npm i
   # && npm install verdaccio-s3-storage
 
 # CUSTOM IMAGE / User
-ARG VERDACCIO_USER_NAME
-ARG VERDACCIO_USER_UID
+ARG SERVER_USER_NAME=verdaccio-agate
+ARG SERVER_USER_UID=1000
 
-RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
+RUN adduser -u $SERVER_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $SERVER_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/bin $VERDACCIO_APPDIR/docker-bin && \
-    chown -R $VERDACCIO_USER_UID:root /verdaccio/storage && \
+    chown -R $SERVER_USER_UID:root /verdaccio/storage && \
     chmod -R g=u /verdaccio/storage /etc/passwd
 
-USER ${VERDACCIO_USER_NAME}
+USER ${SERVER_USER_NAME}
