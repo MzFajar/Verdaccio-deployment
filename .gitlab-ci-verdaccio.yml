@@ -23,6 +23,7 @@ variables:
       --build-arg DOC_VERDACCIO_VER="${DOC_VERDACCIO_VER}" \
       --build-arg VERDACCIO_USER_NAME="${SERVER_USER_NAME}" \
       --build-arg VERDACCIO_USER_UID="${SERVER_USER_UID}" \
+      -f ./Dockerfile \
       -t ${GCR_PATH}/${$DOC_PROJ_NAME} .
     #tagging X.X.XXX for 
     - echo "Tagging image ${GCR_PATH}/${DOC_PROJ_NAME}:${VERSION_TAG}.${CI_PIPELINE_IID}"
