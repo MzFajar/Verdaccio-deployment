@@ -1,0 +1,48 @@
+#=================== Define Variable ===================
+variables:
+  MAJOR_VER: "1"
+  MINOR_VER: "0"
+  DOC_VERDACCIO_VER: "4.6"
+  SERVER_USER_NAME: "verdaccio-agate"
+  SERVER_USER_UID: "1000"
+
+#=================== Build Stage ===================
+# Build Release Onpremise Template
+.build-template:
+  stage: build
+  variables:
+    VERSION_TAG: "${MAJOR_VER}.${MINOR_VER}"
+  tags:
+    - docker
+  before_script:
+    - GCR_PATH="agate"
+  script:
+    - |
+      docker build \
+      --build-arg DOC_PROJ_NAME="{$DOC_PROJ_NAME}" \
+      --build-arg DOC_VERDACCIO_VER="${DOC_VERDACCIO_VER}" \
+      --build-arg VERDACCIO_USER_NAME="${SERVER_USER_NAME}" \
+      --build-arg VERDACCIO_USER_UID="${SERVER_USER_UID}" \
+      -t ${GCR_PATH}/${$DOC_PROJ_NAME} .
+    #tagging X.X.XXX for 
+    - echo "Tagging image ${GCR_PATH}/${DOC_PROJ_NAME}:${VERSION_TAG}.${CI_PIPELINE_IID}"
+    - docker tag ${GCR_PATH}/${DOC_PROJ_NAME} ${GCR_PATH}/${DOC_PROJ_NAME}:${VERSION_TAG}.${CI_PIPELINE_IID}
+    - docker save --output ${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}.tar ${GCR_PATH}/${DOC_PROJ_NAME}:${VERSION_TAG}.${CI_PIPELINE_IID}
+    - echo "${DOC_PROJ_NAME} BUILD DONE"
+  artifacts:
+    paths:
+      - "${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}.tar"
+    when: always
+    expire_in: 15 minutes
+
+build-verdaccio:
+  extends: .build-template
+  variables:
+    DOC_PROJ_NAME: "verdaccio"
+  only:
+    refs: 
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - .gitlab-ci-verdaccio.yml
+      - Docker*

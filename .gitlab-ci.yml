@@ -1,0 +1,9 @@
+stages:
+  - build
+  - deploy
+  - update
+
+include:
+  - local: '/.gitlab-ci-verdaccio.yml'
+  - local: '/.gitlab-ci-update-conf.yml'
+  - local: '/.gitlab-ci-update-user.yml'
