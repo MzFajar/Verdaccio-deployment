@@ -1,6 +1,6 @@
 # DEFINE BASE IMAGE
 ARG DOC_VERDACCIO_VER=4.6
-FROM verdaccio/verdaccio:${DOCK_VERDACCIO_VER}
+FROM verdaccio/verdaccio:4.6
 
 # CUSTOM IMAGE
 USER root
