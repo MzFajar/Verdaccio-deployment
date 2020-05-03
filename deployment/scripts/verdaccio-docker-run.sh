@@ -14,7 +14,7 @@ docker rmi $(docker images |grep "${DOC_IMAGE_NAME}")
 set -e
 docker load --input ${PACKAGE_IMAGE_NAME}.tar
 
-docker run -d --rm --name ${DOC_PROJ_NAME} \
+docker run -d --name ${DOC_PROJ_NAME} \
   -v ${DOC_MNT_VOL}:/verdaccio \
   -p ${DOC_PUBISH_PORT}:4873 \
   --restart unless-stopped \
