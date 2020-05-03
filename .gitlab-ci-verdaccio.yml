@@ -1,11 +1,3 @@
-#=================== Define Variable ===================
-variables:
-  MAJOR_VER: "1"
-  MINOR_VER: "0"
-  DOC_VERDACCIO_VER: "4.6"
-  SERVER_USER_NAME: "verdaccio-agate"
-  SERVER_USER_UID: "1000"
-
 #=================== Build Stage ===================
 # Build Template
 .build-template:

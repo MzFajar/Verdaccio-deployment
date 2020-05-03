@@ -1,3 +1,10 @@
+#=================== Define Variable ===================
+variables:
+  MAJOR_VER: "1"
+  MINOR_VER: "0"
+  DOC_VERDACCIO_VER: "4.6"
+  SERVER_USER_NAME: "verdaccio-agate"
+
 stages:
   - build
   - deploy
@@ -5,5 +12,5 @@ stages:
 
 include:
   - local: '/.gitlab-ci-verdaccio.yml'
-#  - local: '/.gitlab-ci-update-conf.yml'
+  - local: '/.gitlab-ci-update-conf.yml'
 #  - local: '/.gitlab-ci-update-user.yml'
