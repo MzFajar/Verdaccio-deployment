@@ -67,12 +67,12 @@ build-verdaccio:
     - sshpass -p "${LOGIC_KEY}" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./deployment/scripts/*.sh "${LOGIC_USER}"@"${LOGIC_IP}":/home/"${LOGIC_USER}"/
     - |
       sshpass -p "${LOGIC_KEY}" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-      "${LOGIC_USER}"@"${LOGIC_IP}" < verdaccio-presetup.sh \
+      "${LOGIC_USER}"@"${LOGIC_IP}":/home/"${LOGIC_USER}"/ < verdaccio-presetup.sh \
         ${SERVER_USER_NAME} \
         ${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}
     - |
       sshpass -p "${LOGIC_KEY}" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-      "${LOGIC_USER}"@"${LOGIC_IP}" < verdaccio-docker-run.sh \
+      "${LOGIC_USER}"@"${LOGIC_IP}":/home/"${LOGIC_USER}"/ < verdaccio-docker-run.sh \
         ${DOC_PROJ_NAME} \
         ${GCR_PATH}/${DOC_PROJ_NAME} \
         ${VERSION_TAG}.${CI_PIPELINE_IID} \
