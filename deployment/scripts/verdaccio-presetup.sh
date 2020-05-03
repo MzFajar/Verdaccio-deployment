@@ -19,4 +19,4 @@ else
   sudo chown -R ${SERVER_USER_NAME}:65533 /home/${SERVER_USER_NAME}/verdaccio
 fi
 
-unzip -d /home/${SERVER_USER_NAME}/verdaccio/ /home/${SERVER_USER_NAME}/${PACKAGE_CONF_NAME}.zip
+unzip -d /home/${SERVER_USER_NAME}/ /home/${SERVER_USER_NAME}/${PACKAGE_CONF_NAME}.zip
