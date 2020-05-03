@@ -21,7 +21,7 @@
     - sshpass -p "${LOGIC_KEY}" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${LOGIC_USER}"@"${LOGIC_IP}" < ./deployment/scripts/verdaccio-update-conf.sh
     - echo "${DOC_PROJ_NAME} UPDATE-CONF DONE"
 
-deploy-verdaccio:
+update-conf-verdaccio:
   extends: .update-conf-template
   variables:
     DOC_PROJ_NAME: "verdaccio"
@@ -34,9 +34,9 @@ deploy-verdaccio:
       - deployment/scripts/verdaccio-update-conf.sh
       - verdaccio/conf/config.yaml
       - verdaccio/web/*
-#  except:
-#    changes:
-#      - .gitlab-ci-verdaccio.yml
-#      - Docker*
-#      - deployment/scripts/verdaccio-docker-run.sh
-#      - deployment/scripts/verdaccio-presetup.sh
+  except:
+    changes:
+      - .gitlab-ci-verdaccio.yml
+      - Docker*
+      - deployment/scripts/verdaccio-docker-run.sh
+      - deployment/scripts/verdaccio-presetup.sh
