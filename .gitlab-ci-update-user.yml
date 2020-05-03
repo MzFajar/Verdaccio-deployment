@@ -1,0 +1,41 @@
+#=================== Update Stage ===================
+# Update Template
+.update-user-template:
+  stage: update
+  variables:
+    VERSION_TAG: "${MAJOR_VER}.${MINOR_VER}"
+  when: manual
+  tags:
+    - docker
+  before_script:
+    - LOGIC_KEY=${SERVER_USER_PASS}
+    - LOGIC_USER=${SERVER_USER_NAME}
+    - LOGIC_IP=${SERVER_HOST}
+    - GCR_PATH="agate"
+    - zip -r ${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}.zip ./verdaccio/conf/config.yaml ./verdaccio/web/*
+    - find ./deployment -type f -exec sed -i -e "s/\[SERVER_USER_NAME\]/${SERVER_USER_NAME}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[PACKAGE_USER_NAME\]/${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[DOC_PROJ_NAME\]/${DOC_PROJ_NAME}/g" {} \;
+  script:
+    - sshpass -p "${LOGIC_KEY}" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./*.zip "${LOGIC_USER}"@"${LOGIC_IP}":/home/"${LOGIC_USER}"/
+    - sshpass -p "${LOGIC_KEY}" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${LOGIC_USER}"@"${LOGIC_IP}" < ./deployment/scripts/verdaccio-update-user.sh
+    - echo "${DOC_PROJ_NAME} UPDATE-USER DONE"
+
+update-user-verdaccio:
+  extends: .update-user-template
+  variables:
+    DOC_PROJ_NAME: "verdaccio"
+  only:
+    refs: 
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - .gitlab-ci-update-user.yml
+      - deployment/scripts/verdaccio-update-user.sh
+      - verdaccio/conf/htpasswd
+  except:
+    changes:
+      - .gitlab-ci-verdaccio.yml
+      - Docker*
+      - deployment/scripts/verdaccio-docker-run.sh
+      - deployment/scripts/verdaccio-presetup.sh
