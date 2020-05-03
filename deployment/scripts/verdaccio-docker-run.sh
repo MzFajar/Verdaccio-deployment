@@ -1,50 +1,10 @@
-if [ -z "$1" ]
-then
-	DOC_PROJ_NAME="verdaccio"
-else
-	DOC_PROJ_NAME=$1
-fi
-
-if [ -z "$2"]
-then
-  echo "Please supply Docker Image Name"
-  exit 1
-else
-  DOC_IMAGE_NAME=$2
-fi
-
-if [ -z "$3"]
-then
-  echo "Please supply Docker Image Tag"
-  exit 1
-else
-  DOC_IMAGE_TAG=$3
-fi
-
-if [ -z "$4"]
-then
-  echo "Please supply Server Username"
-  exit 1
-else
-  DOC_MNT_VOL=/home/$4/
-fi
-
-if [ -z "$5"]
-then
-  DOC_PUBISH_PORT="4873"
-else
-  DOC_PUBISH_PORT=$5
-fi
-
-if [ -z "$6"]
-then
-  echo "Please supply Package Image Name"
-  exit 1
-else
-  PACKAGE_IMAGE_NAME=$6
-fi
-
-DOC_CUST_CMD="$7"
+DOC_PROJ_NAME=[DOC_PROJ_NAME]
+DOC_IMAGE_NAME=[DOC_IMAGE_NAME]
+DOC_IMAGE_TAG=[DOC_IMAGE_TAG]
+DOC_MNT_VOL=/home/[SERVER_USER_NAME]/
+DOC_PUBISH_PORT=[DOC_PUBISH_PORT]
+PACKAGE_IMAGE_NAME=[PACKAGE_IMAGE_NAME]
+DOC_CUST_CMD="[DOC_CUST_CMD]"
 
 set -x
 docker stop ${DOC_PROJ_NAME}

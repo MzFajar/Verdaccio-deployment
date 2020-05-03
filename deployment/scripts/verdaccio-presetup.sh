@@ -1,18 +1,5 @@
-if [ -z "$1"]
-then
-  echo "Please supply Server Username"
-  exit 1
-else
-  SERVER_USER_NAME=$1
-fi
-
-if [ -z "$2"]
-then
-  echo "Please supply Package Configutaion Name"
-  exit 1
-else
-  PACKAGE_CONF_NAME=$1
-fi
+SERVER_USER_NAME=[SERVER_USER_NAME]
+PACKAGE_CONF_NAME=[PACKAGE_CONF_NAME]
 
 set -x
 set -e

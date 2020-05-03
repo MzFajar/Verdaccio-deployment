@@ -61,15 +61,19 @@ build-verdaccio:
     - LOGIC_IP=${SERVER_HOST}
     - GCR_PATH="agate"
     - zip -r ${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}.zip ./verdaccio
+    - find ./deployment -type f -exec sed -i -e "s/\[SERVER_USER_NAME\]/${SERVER_USER_NAME}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[PACKAGE_CONF_NAME\]/${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[DOC_PROJ_NAME\]/${DOC_PROJ_NAME}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[DOC_IMAGE_NAME\]/${GCR_PATH}/${DOC_PROJ_NAME}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[DOC_IMAGE_TAG\]/${VERSION_TAG}.${CI_PIPELINE_IID}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[DOC_PUBISH_PORT\]/${DOC_PUBISH_PORT}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[PACKAGE_IMAGE_NAME\]/${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}/g" {} \;
+    - find ./deployment -type f -exec sed -i -e "s/\[DOC_CUST_CMD\]/${DOC_CUST_CMD}/g" {} \;
   script:
     - sshpass -p "${LOGIC_KEY}" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./*.tar "${LOGIC_USER}"@"${LOGIC_IP}":/home/"${LOGIC_USER}"/
     - sshpass -p "${LOGIC_KEY}" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./*.zip "${LOGIC_USER}"@"${LOGIC_IP}":/home/"${LOGIC_USER}"/
-    - |
-      sshpass -p "${LOGIC_KEY}" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-      "${LOGIC_USER}"@"${LOGIC_IP}" < ./deployment/scripts/verdaccio-presetup.sh
-    - |
-      sshpass -p "${LOGIC_KEY}" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-      "${LOGIC_USER}"@"${LOGIC_IP}" < ./deployment/scripts/verdaccio-docker-run.sh ${DOC_PROJ_NAME} ${GCR_PATH}/${DOC_PROJ_NAME} ${VERSION_TAG}.${CI_PIPELINE_IID} ${SERVER_USER_NAME} ${DOC_PUBISH_PORT} ${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID} "${DOC_CUST_CMD}"
+    - sshpass -p "${LOGIC_KEY}" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${LOGIC_USER}"@"${LOGIC_IP}" < ./deployment/scripts/verdaccio-presetup.sh
+    - sshpass -p "${LOGIC_KEY}" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${LOGIC_USER}"@"${LOGIC_IP}" < ./deployment/scripts/verdaccio-docker-run.sh
     - echo "${DOC_PROJ_NAME} DEPLOY DONE"
 
 deploy-verdaccio:
