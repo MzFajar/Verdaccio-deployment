@@ -12,7 +12,7 @@
     - LOGIC_USER=${SERVER_USER_NAME}
     - LOGIC_IP=${SERVER_HOST}
     - GCR_PATH="agate"
-    - zip -r ${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}.zip ./verdaccio/conf/config.yaml ./verdaccio/web/*
+    - zip -r ${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}.zip ./verdaccio/conf/htpasswd
     - find ./deployment -type f -exec sed -i -e "s/\[SERVER_USER_NAME\]/${SERVER_USER_NAME}/g" {} \;
     - find ./deployment -type f -exec sed -i -e "s/\[PACKAGE_USER_NAME\]/${DOC_PROJ_NAME}_v${VERSION_TAG}.${CI_PIPELINE_IID}/g" {} \;
     - find ./deployment -type f -exec sed -i -e "s/\[DOC_PROJ_NAME\]/${DOC_PROJ_NAME}/g" {} \;
