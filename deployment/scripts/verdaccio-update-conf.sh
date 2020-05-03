@@ -6,7 +6,8 @@ DOC_PROJ_NAME=[DOC_PROJ_NAME]
 set -x
 set -e
 
-rm -rf /home/${SERVER_USER_NAME}/verdaccio/conf
+rm -rf /home/${SERVER_USER_NAME}/verdaccio/conf/config.yaml
+rm -rf /home/${SERVER_USER_NAME}/verdaccio/web/*
 unzip -d /home/${SERVER_USER_NAME}/ /home/${SERVER_USER_NAME}/${PACKAGE_CONF_NAME}.zip
 
 docker restart ${DOC_PROJ_NAME}
