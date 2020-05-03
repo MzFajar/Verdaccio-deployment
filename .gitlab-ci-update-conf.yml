@@ -22,7 +22,7 @@
     - echo "${DOC_PROJ_NAME} UPDATE-CONF DONE"
 
 deploy-verdaccio:
-  extends: .deploy-template
+  extends: .update-conf-template
   variables:
     DOC_PROJ_NAME: "verdaccio"
   only:
