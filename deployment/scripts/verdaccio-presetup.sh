@@ -9,7 +9,7 @@ then
   echo "Verdaccio has been Setuped!"
 
   rm -rf /home/${SERVER_USER_NAME}/verdaccio/conf
-  rm -rf /home/${SERVER_USER_NAME}/verdaccio/log
+  rm -rf /home/${SERVER_USER_NAME}/verdaccio/web
 else 
   mkdir /home/${SERVER_USER_NAME}/verdaccio
   mkdir /home/${SERVER_USER_NAME}/verdaccio/storage
