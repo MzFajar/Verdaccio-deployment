@@ -46,6 +46,8 @@ build-verdaccio:
       - .gitlab-ci.yml
       - .gitlab-ci-verdaccio.yml
       - Docker*
+      - deployment/scripts/verdaccio-docker-run.sh
+      - deployment/scripts/verdaccio-presetup.sh
 
 #=================== Deploy Stage ===================
 # Deploy Template
@@ -92,3 +94,5 @@ deploy-verdaccio:
       - .gitlab-ci.yml
       - .gitlab-ci-verdaccio.yml
       - Docker*
+      - deployment/scripts/verdaccio-docker-run.sh
+      - deployment/scripts/verdaccio-presetup.sh
