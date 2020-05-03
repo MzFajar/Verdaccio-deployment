@@ -22,7 +22,7 @@ web:
   logo: /verdaccio/web/logo.png
   primary_color: "#00A1E4"
   # scope: "@scope"
-  darkMode: true
+  darkMode: false
   # comment out to disable gravatar support
   # gravatar: false
   # by default packages are ordercer ascendant (asc|desc)
