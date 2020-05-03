@@ -1,0 +1,9 @@
+SERVER_USER_NAME=[SERVER_USER_NAME]
+PACKAGE_USER_NAME=[PACKAGE_USER_NAME]
+DOC_PROJ_NAME=[DOC_PROJ_NAME]
+
+set -x
+set -e
+
+rm -rf /home/${SERVER_USER_NAME}/verdaccio/conf/htpasswd
+unzip -d /home/${SERVER_USER_NAME}/ /home/${SERVER_USER_NAME}/${PACKAGE_USER_NAME}.zip
