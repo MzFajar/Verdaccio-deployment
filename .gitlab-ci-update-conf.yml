@@ -32,9 +32,11 @@ deploy-verdaccio:
       - .gitlab-ci.yml
       - .gitlab-ci-update-conf.yml
       - deployment/scripts/verdaccio-update-conf.sh
-  except:
-    changes:
-      - .gitlab-ci-verdaccio.yml
-      - Docker*
-      - deployment/scripts/verdaccio-docker-run.sh
-      - deployment/scripts/verdaccio-presetup.sh
+      - verdaccio/conf/config.yaml
+      - verdaccio/web/*
+#  except:
+#    changes:
+#      - .gitlab-ci-verdaccio.yml
+#      - Docker*
+#      - deployment/scripts/verdaccio-docker-run.sh
+#      - deployment/scripts/verdaccio-presetup.sh
