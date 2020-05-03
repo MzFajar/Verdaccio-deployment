@@ -26,7 +26,7 @@ then
   echo "Please supply Server Username"
   exit 1
 else
-  DOC_MNT_VOL=/home/$3/
+  DOC_MNT_VOL=/home/$4/
 fi
 
 if [ -z "$5"]
@@ -36,9 +36,24 @@ else
   DOC_PUBISH_PORT=$5
 fi
 
-DOC_CUST_CMD="$6"
+if [ -z "$6"]
+then
+  echo "Please supply Package Image Name"
+  exit 1
+else
+  PACKAGE_IMAGE_NAME=$6
+fi
+
+DOC_CUST_CMD="$7"
+
+set -x
+docker stop ${DOC_PROJ_NAME}
+docker rm ${DOC_PROJ_NAME}
+docker rmi $(docker images |grep "${DOC_IMAGE_NAME}")
 
 set -e
+docker load --input ${PACKAGE_IMAGE_NAME}.tar
+
 docker run -d --rm --name ${DOC_PROJ_NAME} \
   -v ${DOC_MNT_VOL}:/verdaccio \
   -p ${DOC_PUBISH_PORT}:4873 \

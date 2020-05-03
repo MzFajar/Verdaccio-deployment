@@ -100,6 +100,11 @@ logs:
       options: {period: 1d}
     }
 
+security:
+  web:
+    sign:
+      expiresIn: 7d
+
 #experiments:
 #  # support for npm token command
 #  token: false
