@@ -54,7 +54,8 @@ build-verdaccio:
   variables:
     VERSION_TAG: "${MAJOR_VER}.${MINOR_VER}"
   tags:
-    - docker
+    - mac
+    - netcore
   before_script:
     - LOGIC_KEY=${SERVER_USER_PASS}
     - LOGIC_USER=${SERVER_USER_NAME}
