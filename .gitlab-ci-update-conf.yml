@@ -4,7 +4,6 @@
   stage: update
   variables:
     VERSION_TAG: "${MAJOR_VER}.${MINOR_VER}"
-  when: manual
   tags:
     - docker
   before_script:
