@@ -64,6 +64,9 @@ packages:
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs
 
+server:
+  keepAliveTimeout: 60
+
 middlewares:
   audit:
     enabled: true
@@ -101,9 +104,13 @@ logs:
     }
 
 security:
-  web:
-    sign:
-      expiresIn: 7d
+  api:
+    legacy: true
+    web:
+      sign:
+        expiresIn: 7d
+      verify:
+         someProp: [value]
 
 #experiments:
 #  # support for npm token command
