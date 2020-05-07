@@ -190,11 +190,15 @@ git push origin develop
 
 > ⚠️ **develop** is a branch
 
-## Step 5: run config.yaml and htpasswd
+## Step 5: create marge request
 
-open CI CD on repository verdaccio but we must request access to the master first
+to be able to merge what we have pushed we must first make a merge request
 
-![adduser](/readme-img/03.png)
+## Step 6: run config.yaml and htpasswd
+
+open CI CD on repository verdaccio but we must create merge request from develop to master branch first
+
+![job](/readme-img/03.png)
 
 run updated from jobs one by one
 
@@ -202,6 +206,56 @@ run updated from jobs one by one
 
 and make sure everything runs without errors
 
-![adduser](/readme-img/04.png)
+![run job](/readme-img/04.png)
 
 now the user that has been added can already be used
+
+## Step 7 : login to Agate Verdaccio
+
+Open Agate Verdaccio on your browser in http://172.16.0.18, but you have to use **vpn agate** to be able to access
+
+![Agate verdaccio](/readme-img/05.png)
+
+Now login with your user account to open or see the package
+
+![login verdaccio](/readme-img/06.png)
+
+## Step 8 : Publish the Package with CLI
+
+To publish your package you must **login** first, **login**:
+
+```
+npm login --registry http://172.16.0.18
+```
+
+Now you can **publish** your package, **publish**:
+
+```
+npm publish <packagename> --registry http://172.16.0.18
+```
+
+![publish](/readme-img/07.png)
+
+> ⚠️ if the folder name and package name are different then the folder name is published but the name of the package is set up or the package that is in it
+
+![publish](/readme-img/08.png)
+
+## Step 9 : Install your Package
+
+You can **install** the package by using another package that has not been published or another folder that you want to **install** the package, **install**:
+
+```
+npm install <packagename> --registry http://172.16.0.18
+```
+
+![install](/readme-img/09.png)
+
+## Step 10 : Delete or Unpublish package
+
+You can also delete or **unpublish** your package, **unpublish**:
+
+```
+npm unpublish <packagename> --force --registry http://172.16.0.18
+```
+
+![unpublish](/readme-img/10.png)
