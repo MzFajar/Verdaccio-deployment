@@ -89,6 +89,13 @@ packages:
     unpublish: $authenticated
     proxy: npmjs
 
+  '@agate/gf*':
+    # scope agate/gf
+    access: $authenticated
+    publish: agatelevelup
+    unpublish: agatelevelup
+    proxy: npmjs
+
   '**':
     # allow all users (including non-authenticated users) to read and
     # publish all packages
